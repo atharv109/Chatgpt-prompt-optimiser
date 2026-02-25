@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PromptPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 300px; background: #0d0d12; color: #e2e2e8; font-family: 'DM Sans', sans-serif; }
+
+  .hero {
+    padding: 18px 18px 14px;
+    background: linear-gradient(160deg, #13131e 0%, #0e0e18 100%);
+    border-bottom: 1px solid #1a1a26;
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle, rgba(109,95,230,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .brand { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
+  .brand-icon {
+    width: 30px; height: 30px;
+    background: linear-gradient(135deg, #6d5fe6, #5b9af5);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; box-shadow: 0 3px 12px rgba(109,95,230,0.4);
+  }
+  .brand-text {
+    font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800;
+    background: linear-gradient(90deg, #c4b5fd, #7dd3fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .tagline { font-size: 11px; color: #555; }
+
+  .section { padding: 16px 16px 0; }
+  .field-label {
+    font-size: 11px; font-weight: 600; color: #6d5fe6;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .key-row { display: flex; gap: 6px; align-items: center; }
+  .key-input {
+    flex: 1; background: #13131c; border: 1px solid #252535; border-radius: 9px;
+    color: #ddd; font-family: monospace; font-size: 12px; padding: 9px 12px;
+    outline: none; transition: border-color 0.15s; letter-spacing: 0.04em;
+  }
+  .key-input:focus { border-color: #6d5fe6; }
+  .key-input::placeholder { color: #333; letter-spacing: 0; font-family: 'DM Sans', sans-serif; }
+  .save-btn {
+    background: linear-gradient(135deg, #6d5fe6, #5b9af5); border: none; border-radius: 9px;
+    color: #fff; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600; padding: 9px 14px;
+    transition: opacity 0.15s, transform 0.15s; white-space: nowrap;
+  }
+  .save-btn:hover:not(:disabled) { opacity: 0.88; transform: scale(1.03); }
+  .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .status-msg { font-size: 11px; margin-top: 7px; min-height: 16px; padding: 0 2px; }
+  .status-msg.ok { color: #4ade80; }
+  .status-msg.err { color: #f87171; }
+  .key-hint { font-size: 10.5px; color: #3a3a4e; margin-top: 8px; line-height: 1.55; padding-bottom: 14px; }
+  .key-hint a { color: #6d5fe666; text-decoration: none; transition: color 0.15s; }
+  .key-hint a:hover { color: #6d5fe6; }
+
+  .divider { height: 1px; background: #141420; margin: 0 16px; }
+
+  .how { padding: 12px 16px 14px; }
+  .how-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; color: #404055; font-weight: 600; margin-bottom: 10px; }
+  .steps { display: flex; flex-direction: column; gap: 6px; }
+  .step { display: flex; align-items: flex-start; gap: 8px; }
+  .step-num {
+    width: 17px; height: 17px; background: linear-gradient(135deg, #6d5fe6, #5b9af5);
+    border-radius: 50%; font-size: 9.5px; font-weight: 700; color: #fff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .step-text { font-size: 11.5px; color: #666; line-height: 1.4; }
+  .step-text strong { color: #999; }
+
+  .status-bar { display: flex; align-items: center; gap: 7px; padding: 9px 16px; border-top: 1px solid #111118; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot.active { background: #4ade80; box-shadow: 0 0 5px #4ade8077; animation: blink 2s ease-in-out infinite; }
+  .dot.inactive { background: #3a3a4e; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .bar-text { font-size: 11px; color: #444; }
+  .bar-text.active strong { color: #4ade80; }
+  .bar-text.inactive strong { color: #f87171; }
+  .delete-btn {
+    margin-left: auto; background: none; border: none; color: #3a3a4e;
+    font-size: 10px; cursor: pointer; padding: 2px 4px; border-radius: 4px;
+    transition: color 0.15s;
+  }
+  .delete-btn:hover { color: #f87171; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="brand">
+    <div class="brand-icon">⚡</div>
+    <div class="brand-text">PromptPro</div>
+  </div>
+  <div class="tagline">AI prompt optimizer · Llama 3.3 70B · Free</div>
+</div>
+
+<div class="section">
+  <div class="field-label">🔑 Groq API Key</div>
+  <div class="key-row">
+    <input class="key-input" id="api-key-input" type="password" placeholder="gsk_..." autocomplete="off" spellcheck="false" />
+    <button class="save-btn" id="save-btn">Save</button>
+  </div>
+  <div class="status-msg" id="status-msg"></div>
+  <div class="key-hint">
+    Free key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> — no credit card.<br>
+    Stored locally in your browser only.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="how">
+  <div class="how-label">How it works</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Type your rough prompt in ChatGPT</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Click <strong>⚡ Optimize</strong> next to the send button</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Llama 3.3 70B rewrites it instantly with full context, persona & goal clarity</div></div>
+  </div>
+</div>
+
+<div class="status-bar">
+  <div class="dot inactive" id="status-dot"></div>
+  <div class="bar-text inactive" id="bar-text"><strong>No API key</strong> — add one above</div>
+  <button class="delete-btn" id="delete-btn" style="display:none">✕ Remove</button>
+</div>
+
+<!-- External script only — MV3 blocks inline scripts -->
+<script src="popup.js"></script>
+</body>
+</html>
