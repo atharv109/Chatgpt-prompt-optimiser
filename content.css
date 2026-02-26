@@ -1,4 +1,4 @@
-/* PromptPro v3 – content styles */
+/* PromptPro v14 – button styled to fit toolbar context */
 
 #promptpro-btn {
   display: inline-flex;
@@ -9,24 +9,28 @@
   border-radius: 999px;
   color: #fff;
   cursor: pointer;
-  font-family: -apple-system, 'DM Sans', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 600;
-  padding: 6px 13px 6px 10px;
-  box-shadow: 0 2px 10px rgba(109,95,230,0.4);
-  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease;
+  padding: 5px 12px 5px 9px;
+  box-shadow: 0 2px 8px rgba(109,95,230,0.35);
+  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease, opacity 0.15s;
   white-space: nowrap;
   user-select: none;
   flex-shrink: 0;
   vertical-align: middle;
   letter-spacing: 0.01em;
+  /* Ensure it never stretches full width */
+  width: auto !important;
+  max-width: fit-content !important;
+  position: static !important;
+  margin: 0 4px;
 }
 
 #promptpro-btn:hover {
-  transform: scale(1.06) translateY(-1px);
-  box-shadow: 0 5px 18px rgba(109,95,230,0.6);
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 4px 14px rgba(109,95,230,0.55);
 }
-
 #promptpro-btn:active { transform: scale(0.97); }
 
 #promptpro-btn.pp-loading {
@@ -34,21 +38,14 @@
   box-shadow: none;
   cursor: wait;
 }
-
 #promptpro-btn.pp-done {
   background: linear-gradient(135deg, #059669, #0891b2);
-  box-shadow: 0 2px 10px rgba(5,150,105,0.4);
+  box-shadow: 0 2px 8px rgba(5,150,105,0.35);
 }
 
+.pp-icon { font-size: 13px; line-height: 1; }
 .pp-spin { animation: pp-rotate 0.75s linear infinite; display: inline-block; }
 @keyframes pp-rotate { to { transform: rotate(360deg); } }
-
-#promptpro-btn.pp-fallback {
-  position: absolute;
-  bottom: 10px;
-  right: 52px;
-  z-index: 9999;
-}
 
 /* Toast */
 #pp-toast {
@@ -61,7 +58,7 @@
   border: 1px solid #2d2d3e;
   border-radius: 10px;
   color: #c4b5fd;
-  font-family: -apple-system, sans-serif;
+  font-family: inherit;
   font-size: 12.5px;
   font-weight: 500;
   padding: 9px 18px;
@@ -72,8 +69,5 @@
   max-width: 420px;
   text-align: center;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-
 .pp-toast-warn { color: #fde68a; border-color: #92400e55; }

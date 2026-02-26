@@ -1,12 +1,16 @@
 {
   "manifest_version": 3,
   "name": "PromptPro – AI Prompt Optimizer",
-  "version": "5.0.0",
-  "description": "One click to intelligently rewrite your ChatGPT prompts using Llama 3.3 70B via Groq.",
+  "version": "12.0.0",
+  "description": "One click to intelligently rewrite prompts on ChatGPT, Claude, Gemini, and Perplexity.",
   "permissions": ["storage"],
   "host_permissions": [
     "https://chatgpt.com/*",
     "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://www.perplexity.ai/*",
+    "https://perplexity.ai/*",
     "https://api.groq.com/*"
   ],
   "background": {
@@ -14,7 +18,14 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://www.perplexity.ai/*",
+        "https://perplexity.ai/*"
+      ],
       "js": ["content.js"],
       "css": ["content.css"],
       "run_at": "document_idle"
